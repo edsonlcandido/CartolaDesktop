@@ -13,10 +13,17 @@ namespace Cartola
 {
     public partial class FormMain : Form
     {
-        public FormMain()
+        Mercado mercado;
+
+        public FormMain(Mercado mercado)
         {
             InitializeComponent();
+            this.mercado = mercado;
         }
 
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

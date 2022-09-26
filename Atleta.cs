@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
-namespace CartolaDesktop
+namespace Cartola
 {
     class Atleta
     {
-        private int id;
-        private int clube_id;
-        private string posicao_id;
-        private string status;
-        private float pontos;
-        private float preco;
-        private float variacao;
-        private float media;
-        private float jogos;
-        private float minimoParaValorizar;
-        private string slug;
-        private string apelido;
-        private string nome;
+        [JsonPropertyName("atleta_id")]
+        public int id { get; set; }
+        public int clube_id { get; set; }
+        public int posicao_id { get; set; }
+        public float pontos_num { get; set; }
+        public float preco { get; set; }
+        public float variacao { get; set; }
+        public float media { get; set; }
+        public float minimoParaValorizar { get; set; }
+        public string slug { get; set; }
+        public string apelido { get; set; }
+        public string nome { get; set; }
+        public int jogos_num { get; set; }
+        public int status_id { get; set; }
         private int G;
         private int A;
         private int FT;

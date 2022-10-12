@@ -1,46 +1,91 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Text.Json;
+//using System.Text.Json.Nodes;
 
 namespace Cartola
 {
-    internal class Mercado
+    public class Mercado
     {
-        class MercadoJson
-        {
-            public dynamic clubes { get; set; }
-            public dynamic posicoes { get; set; }
-            public dynamic atletas { get; set; }
-            public dynamic status { get; set; }
-        }
+        Dictionary<int, Posicao> posicoes;
+        Dictionary<int, Clube> clubes;
+        Dictionary<int, Status> status;
+        List<Atleta> atletas;
 
+        public Mercado()
+        {
+            posicoes = new Dictionary<int, Posicao>();
+            clubes = new Dictionary<int, Clube>();
+            status = new Dictionary<int, Status>();
+            atletas = new List<Atleta>();
+        }
         public void carregaMercado()
         {
-            var definition = new { clubes = "", posicoes = "", atletas = "", status = "" };
             string file = File.ReadAllText(@"mercado.json");
-            JsonTextReader reader = new JsonTextReader(new StringReader(file));
-            //while (reader.Read())
+
+            JsonDocument jsonDocument = JsonDocument.Parse(file);
+
+            JsonElement posicoesApi = jsonDocument.RootElement.GetProperty("posicoes");
+
+            foreach (var p in posicoesApi.EnumerateObject())
+            {
+                int id = Convert.ToInt32(p.Value.GetProperty("id").ToString());
+                Posicao posicao = new Posicao()
+                {
+                    nome = p.Value.GetProperty("nome").ToString(),
+                    id = id,
+                    abreviacao = p.Value.GetProperty("abreviacao").ToString()
+                };
+
+                posicoes.Add(id, posicao);
+            }
+
+            //Usando System.Text.Json.Nodes;
+            //JsonNode mercadoApi = JsonNode.Parse(file);
+
+            //JsonObject posicoesApi = mercadoApi["posicoes"].AsObject();
+
+            //foreach (var p in posicoesApi)
             //{
-            //    if (reader.Value != null)
+            //    int id = Convert.ToInt32(p.Value["id"].ToString());
+            //    Posicao posicao = new Posicao()
             //    {
-            //        Console.WriteLine("Token: {0}, Value: {1}", reader.TokenType, reader.Value);
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine("Token: {0}", reader.TokenType);
-            //    }
-            //}
-            //JsonSerializer serializer = new JsonSerializer();
-            Newtonsoft.Json.Linq.JObject mercadoJObject = (Newtonsoft.Json.Linq.JObject)JsonConvert.DeserializeObject(file);
-            
-            MercadoJson mercadoJson = new MercadoJson();
-            mercadoJson.clubes = mercadoJObject.First;
-            mercadoJson.posicoes = mercadoJObject.Next;
-            mercadoJson.status = mercadoJObject.Next;
-            mercadoJson.atletas = mercadoJObject.Next;
-        }       
+            //        nome = p.Value["nome"].ToString(),
+            //        id = id,
+            //        abreviacao = p.Value["abreviacao"].ToString()
+            //    };
+
+            //    posicoes.Add(id, posicao);
+            //}            
+
+            JsonElement clubesApi = jsonDocument.RootElement.GetProperty("clubes");
+
+            foreach (var c in clubesApi.EnumerateObject())
+            {
+                int id = Convert.ToInt32(c.Value.GetProperty("id").ToString());
+                Clube clube = JsonSerializer.Deserialize<Clube>(c.Value.ToString());
+                clubes.Add(id, clube);
+            }
+
+            JsonElement statusApi = jsonDocument.RootElement.GetProperty("status");
+
+            foreach (var s in statusApi.EnumerateObject())
+            {
+                int id = Convert.ToInt32(s.Value.GetProperty("id").ToString());
+                Status status = JsonSerializer.Deserialize<Status>(s.Value.ToString());
+                this.status.Add(id, status);
+            }
+
+            JsonElement atletasApi = jsonDocument.RootElement.GetProperty("atletas");
+
+            foreach (var a in atletasApi.EnumerateArray())
+            {                
+                Atleta atleta = JsonSerializer.Deserialize<Atleta>(a.ToString());
+                atletas.Add(atleta);
+            }
+        }        
     }
 }

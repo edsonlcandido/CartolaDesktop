@@ -7,15 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.Json;
 
 namespace Cartola
 {
     public partial class FormMain : Form
     {
-        public FormMain()
+        Mercado mercado;
+
+        public FormMain(Mercado mercado)
         {
             InitializeComponent();
+            this.mercado = mercado;
         }
 
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

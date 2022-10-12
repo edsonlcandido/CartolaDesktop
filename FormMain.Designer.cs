@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(764, 553);
             this.Name = "FormMain";
             this.Text = "Cartola 2022";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.ResumeLayout(false);
 
         }

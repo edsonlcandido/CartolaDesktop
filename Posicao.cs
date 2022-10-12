@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CartolaDesktop
+namespace Cartola
 {
-    class Posicao
+    public class Posicao
     {
-        private int id;
-        private string nome;
-        private string abreviacao;
+        public int id { get; set; }
+        public string nome { get; set; }   
+        public string abreviacao { get; set; } 
     }
 }

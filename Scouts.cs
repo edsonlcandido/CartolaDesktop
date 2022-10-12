@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CartolaDesktop
+namespace Cartola
 {
-    class Scouts
+    public class Scouts
     {
         private List<Scout> _Scouts;
         public Scouts()
@@ -31,10 +31,11 @@ namespace CartolaDesktop
             Scout golSofrido = new Scout() { id = "GS", nome = "gol sofrido", pontos = -1 };
         }
     }
-    struct Scout
+    public struct Scout
     {
         public string id;
         public string nome;
         public double pontos;
+        public double quantidade;
     }
 }

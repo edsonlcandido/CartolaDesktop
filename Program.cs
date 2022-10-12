@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Cartola;
 
-namespace Cartola
+namespace CartolaDesktop
 {
     internal static class Program
     {
@@ -17,7 +18,10 @@ namespace Cartola
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
+            Mercado mercado = new Mercado();
+            mercado.carregaMercado();
+            Application.Run(new FormMain(mercado));
+
         }
     }
 }

@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Cartola
 {
-    internal class Clube
+    public class Clube
     {
-        private int id;
-        private string nome;
-        private string abreviacao;
-        private string nomeFantasia;
+        public int id { get; set; }
+        public string nome { get; set; }
+        public string abreviacao { get; set; }
+        [JsonPropertyName("nome_fantasia")]
+        public string nomeFantasia { get; set; }
     }
 }

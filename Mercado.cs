@@ -20,6 +20,7 @@ namespace Cartola
             posicoes = new Dictionary<int, Posicao>();
             clubes = new Dictionary<int, Clube>();
             status = new Dictionary<int, Status>();
+            atletas = new List<Atleta>();
         }
         public void carregaMercado()
         {

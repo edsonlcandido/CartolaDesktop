@@ -2,13 +2,17 @@
 
 Programa desktop para visualização dos atletas da API do cartola.
 
-- [ ] listar atletas num datagrid view
+- [x] listar atletas num datagrid view
 
 - [ ] atualizar o arquivo mercado.json quado o usuario quiser
 
+- [ ] mostrar scouts no datagrid view
+
+- [ ] criar numero edinho
+
 ## para programadores
 
-- [ ] percorrer todo o array de atletas obtendo o nome do clube, posicao e status dos dicionarios
+- [x] percorrer todo o array de atletas obtendo o nome do clube, posicao e status dos dicionarios
 
 - [x] converter o objeto clubes para um Dictionary<int, Clube>
 
@@ -21,4 +25,4 @@ Programa desktop para visualização dos atletas da API do cartola.
 - ~biblioteca nativa System.Text.Json.Nodes~
 - biblioteca System.Text.Json;
 
-[url api o cartola](https://api.cartola.globo.com/atletas/mercado)
+[url api do cartola](https://api.cartola.globo.com/atletas/mercado)

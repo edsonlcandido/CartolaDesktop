@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 //using System.Text.Json.Nodes;
 
-namespace Cartola
+namespace CartolaDesktop.Cartola
 {
     public class Mercado
     {
-        Dictionary<int, Posicao> posicoes;
-        Dictionary<int, Clube> clubes;
-        Dictionary<int, Status> status;
-        List<Atleta> atletas;
+        public Dictionary<int, Posicao> posicoes;
+        public Dictionary<int, Clube> clubes;
+        public Dictionary<int, Status> status;
+        public List<Atleta> atletas;
 
         public Mercado()
         {
@@ -22,6 +23,7 @@ namespace Cartola
             status = new Dictionary<int, Status>();
             atletas = new List<Atleta>();
         }
+
         public void carregaMercado()
         {
             string file = File.ReadAllText(@"mercado.json");
@@ -82,10 +84,16 @@ namespace Cartola
             JsonElement atletasApi = jsonDocument.RootElement.GetProperty("atletas");
 
             foreach (var a in atletasApi.EnumerateArray())
-            {                
+            {
                 Atleta atleta = JsonSerializer.Deserialize<Atleta>(a.ToString());
+                var scouts = a.GetProperty("scout");
+                atleta.scout = JsonSerializer.Deserialize<Scout>(scouts.ToString());
+                //foreach (PropertyInfo property in atleta.scout.GetType().GetProperties())
+                //{
+                //    scouts.GetProperty(property.Name);
+                //}
                 atletas.Add(atleta);
             }
-        }        
+        }
     }
 }
